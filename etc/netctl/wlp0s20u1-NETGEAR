@@ -1,0 +1,7 @@
+Description='Automatically generated profile by wifi-menu'
+Interface=wlp0s20u1
+Connection=wireless
+Security=wpa
+ESSID=NETGEAR
+IP=dhcp
+Key=

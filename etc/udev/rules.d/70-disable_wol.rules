@@ -1,0 +1,2 @@
+# Disable wake-on-lan
+ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*", RUN+="/usr/bin/ethtool -s %k wol d"

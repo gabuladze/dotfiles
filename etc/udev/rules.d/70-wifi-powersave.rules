@@ -1,0 +1,2 @@
+#Enable power saving on all wifi devices
+ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*", RUN+="/usr/bin/iw dev %k set power_save on"

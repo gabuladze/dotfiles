@@ -1,0 +1,7 @@
+Description='Home'
+Interface=wlp2s0
+Connection=wireless
+Security=wpa
+ESSID=GABULADZE
+IP=dhcp
+Key=

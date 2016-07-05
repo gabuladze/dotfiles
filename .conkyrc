@@ -1,0 +1,62 @@
+background no
+out_to_console yes
+out_to_x no
+max_text_width 0
+own_window no
+update_interval 0.5
+total_run_times 0
+short_units yes
+if_up_strictness address
+use_spacer right
+override_utf8_locale no
+cpu_avg_samples 2
+#use_xft yes
+#xftfont Cantarell:pixelsize=9
+alignment top_middle
+
+TEXT
+[
+
+#MPD
+{"full_text":"${if_mpd_playing}  ${endif}","color":"\#e0e0e0","separator":false,"separator_block_width":4},\
+{"full_text":"${if_mpd_playing}${mpd_smart}${endif}","color":"\#FFFFFF","separator":true,"separator_block_width":15},\
+
+#Finds current volume. May need modified depending on your setup
+{"full_text":" ","color":"\#e0e0e0","separator":false,"separator_block_width":4},\
+{"full_text":"${exec pamixer --get-volume}%", "color":"\#FFFFFF","separator":true,"separator_block_width":15},\
+
+#Wifi
+{"full_text":"${if_up wlp2s0} ${endif}","color":"\#e0e0e0","separator":false,"separator_block_width":4},\
+{"full_text":"${if_up wlp2s0}${upspeed wlp2s0}/${downspeed wlp2s0}${endif}","color":"\#FFFFFF","separator":true,"separator_block_width":15},\
+
+#Ethernet
+{"full_text":"${if_up enp2s0} ${endif}","color":"\#e0e0e0","separator":false,"separator_block_width":4},\
+{"full_text":"${if_up enp2s0}${addr enp2s0} ${upspeed enp2s0}/${downspeed enp2s0}${endif}","color":"\#FFFFFF","separator":true,"separator_block_width":15},\
+
+#Load average
+{"full_text":" ","color":"\#e0e0e0","separator":false,"separator_block_width":4},\
+{"full_text":"${loadavg 1}","color":"\#FFFFFF","separator":true,"separator_block_width":15},\
+#{"full_text":"$cpu% $mem/$memmax","color":"\#FFFFFF","separator":false,"separator_block_width":4},\
+#{"full_text": " :[$cpu%] ", "color":"\#8D00FF", "separator": false, "separator_block_width":6},\
+
+#Battery
+{"full_text":" ","color":"\#e0e0e0","separator":false,"separator_block_width":4},\
+{"full_text":"${battery BAT1}","color":"\#ffffff","separator":true,"separator_block_width":15},\
+#Check the battery percentage and send a notif to display
+${if_match ${laptop_mode}>=0}
+ ${if_match ${battery_percent BAT1}<15}
+  ${if_match ${battery_percent BAT1}<5}
+   ${execi 9999999 notify-send -u critical -i battry-caution "Low Battery Warning!" "Please, connect the laptop to a power source!"}
+  ${else}
+   ${execi 9999999 notify-send -u critical -i battry-low "Low Battery Warning!" "Please, connect the laptop to a power source!"}
+  ${endif}
+ ${endif}
+${endif}
+
+#Calender/time
+{"full_text":" ","color":"\#e0e0e0","separator":false,"separator_block_width":4},\
+{"full_text":"${time %a,%e %b,%Y}","color":"\#FFFFFF","separator":false},\
+
+{"full_text":" ","color":"\#e0e0e0","separator":false,"separator_block_width":4},\
+{"full_text":"${time %I:%M} ","color":"\#FFFFFF","separator":true, "separator_block_width":15}
+],
